@@ -1,28 +1,5 @@
 package fi.sauli.view.station;
 
-
-/*
-* Tarkoitus:
-Tämä pitää itse syöttökentät.
-
-Jos Station-entiteetissäsi on esimerkiksi:
-- name
-- city
-- address
-- capacity
-
-* niin formiin tulee kentät niille, esimerkiksi:
-
-- TextField name
-- TextField city
-- TextField address
-- IntegerField capacity
-
-* Tähän tulee myös:
-- binder (Binder<Station>)
-- save/delete/cancel napit
-- metodi setStation(Station station)*/
-
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.IntegerField;

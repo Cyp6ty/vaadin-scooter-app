@@ -1,6 +1,5 @@
 package fi.sauli.view.station;
 
-
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -10,7 +9,6 @@ import fi.sauli.entity.Station;
 import fi.sauli.service.StationService;
 import com.vaadin.flow.component.notification.Notification;
 
-//import javax.management.Notification;
 
 @Route("stations")
 public class StationView extends VerticalLayout {
