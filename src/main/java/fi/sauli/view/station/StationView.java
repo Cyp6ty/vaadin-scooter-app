@@ -1,20 +1,5 @@
 package fi.sauli.view.station;
 
-// todo:
-// Grid, jossa näkyvät stationit
-// - nappi uuden stationin lisäykseen
-// - mahdollisuus valita rivi muokkausta varten
-// - poistonappi
-
-/*
-* Tähän näkymään tulee yleensä:
-- Grid<Station>
-- FormLayout tai oma form-komponentti
-- Button save
-- Button delete
-- Button cancel
-- Button add new
-*/
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
