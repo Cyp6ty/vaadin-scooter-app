@@ -40,8 +40,8 @@ public class Scooter {
     // --- RELAATIOT ---
 
     // M:1 - Yhdellä scooterilla on yksi station
+    // Yhdellä stationilla voi olla monta scooteria
     // OMISTAVA PUOLI
-    // FK 'station_id' luodaan scooter-tauluun)
     @ManyToOne
     @JoinColumn(name = "station_id")
     private Station station;

@@ -37,13 +37,13 @@ public class Ride {
 
     // --- RELAATIOT ---
 
-    /* Yksi Ride = yksi ajo
+    /* 1 Ride = 1 ajo
        yhdellä ajolla on:
-        - yksi skootteri
-        - yksi lähtöasema
-        - yksi pääteasema
+        - 1 scooter
+        - 1 lähtöasema
+        - 1 pääteasema
     JA
-     - yhdellä skootterilla voi olla monta ajoa
+     - yhdellä scooterilla voi olla monta ajoa
      - yhdellä asemalla voi olla monta alkavaa ajoa
      - yhdellä asemalla voi olla monta päättyvää ajoa
     */

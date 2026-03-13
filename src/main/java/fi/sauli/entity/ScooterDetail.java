@@ -36,9 +36,8 @@ public class ScooterDetail {
 
     // --- RELAATIOT ---
 
-    // 1:1 - Yhdellä ScooterDetail-oliolla on yksi scooter
+    // 1:1 - Yhdellä ScooterDetaililla on yksi scooter
     // OMISTAVA PUOLI
-    // FK 'scooter_id' luodaan scooterdetail tauluun
     @OneToOne
     @JoinColumn(name = "scooter_id", unique = true)
     private Scooter scooter;

@@ -33,7 +33,8 @@ public class Feature {
 
     // --- RELAATIOT ---
 
-    // M:N - Yksi ominaisuus voi kuulua monelle scooterille
+    // M:N - Yhdellä scooterilla voi olla monta ominaisuutta
+    // Yksi ominaisuus voi kuulua monelle scooterille
     // KÄÄNTEINEN PUOLI
     @ManyToMany(mappedBy = "features")
     private Set<Scooter> scooters = new HashSet<>();
