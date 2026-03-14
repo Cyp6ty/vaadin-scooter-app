@@ -14,7 +14,7 @@ public class StationForm extends FormLayout {
     private TextField city = new TextField("Kaupunki");
     private TextField address = new TextField("Osoite");
     private IntegerField capacity = new IntegerField("Kapasiteetti");
-    private TextField area = new TextField("Area");
+    private TextField area = new TextField("Kaupunkin osa");
 
     // Buttonit
     private Button save = new Button("Tallenna");
@@ -36,8 +36,43 @@ public class StationForm extends FormLayout {
                 cancel
         );
 
-        // Automaattinen sidonta
-        binder.bindInstanceFields(this);
+        // --- Tarkistukset ---
+        // (ilmoitus käyttäjälle jos arvot väärin)
+        binder.forField(name)
+                .asRequired("Syötä aseman nimi")
+                .withValidator(text -> text.trim().length() >= 3,
+                        "nimi tulee olla vähintään 3 merkkiä")
+                .bind(Station::getName,
+                        Station::setName);
+
+        binder.forField(city)
+                .asRequired("Syötä kaupunki")
+                .withValidator(text -> text.trim().length() >= 3,
+                        "Kaupungin nimi tulee olla vähintään 3 merkkiä")
+                .bind(Station::getCity,
+                        Station::setCity);
+
+        binder.forField(address)
+                .asRequired("Syötä osoite")
+                .withValidator(text -> text.trim().length() >= 3,
+                        "Kaupungin nimi tulee olla vähintään 3 merkkiä")
+                .bind(Station::getAddress,
+                        Station::setAddress);
+
+        binder.forField(capacity)
+                .asRequired("Syötä aseman kapasiteetti")
+                .withValidator(number -> number >= 1 && number <= 50,
+                        "Kapasiteetin tulee olla väliltä 1-50")
+                .bind(Station::getCapacity,
+                        Station::setCapacity);
+
+        binder.forField(area)
+                .asRequired("Syötä kaupungin alue")
+                .withValidator(text -> text.trim().length() >= 3,
+                        "Alue tulee olla vähintään 3 merkkiä")
+                .bind(Station::getArea,
+                        Station::setArea);
+
     }
 
     // tallennetaan se station jota formissa muokataan
