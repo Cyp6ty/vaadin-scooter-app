@@ -24,6 +24,7 @@ public class ScooterForm extends FormLayout {
 
     private Binder<Scooter> binder = new Binder<>(Scooter.class);
 
+    // --- Konstruktor ---
     public ScooterForm() {
         setWidth("25em");
         add(
@@ -38,7 +39,12 @@ public class ScooterForm extends FormLayout {
         );
 
         // Statuksen valittavat tilat
-        status.setItems("AVAILABLE", "IN_USE", "MAINTENANCE", "OUT_OF_SERVICE");
+        status.setItems("" +
+                "AVAILABLE",
+                "IN_USE",
+                "MAINTENANCE",
+                "OUT_OF_SERVICE"
+        );
         status.setPlaceholder("Valitse status");
         status.setClearButtonVisible(true);
 
@@ -76,7 +82,6 @@ public class ScooterForm extends FormLayout {
                         "Valmistusvuosi tulee olla väliltä 2015-2026")
                 .bind(Scooter::getManufactureYear,
                         Scooter::setManufactureYear);
-
     }
 
     private Scooter scooter;
