@@ -4,13 +4,17 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.Route;
+import fi.sauli.base.ui.MainLayout;
 import fi.sauli.entity.Station;
 import fi.sauli.service.StationService;
 import com.vaadin.flow.component.notification.Notification;
 
 
-@Route("stations")
+//@Route("stations")
+@Route(value = "stations", layout = MainLayout.class)
+@Menu(title = "Asemat")
 public class StationView extends VerticalLayout {
 
     private final StationService stationService;
@@ -24,12 +28,10 @@ public class StationView extends VerticalLayout {
 
         configureGrid();
         configureForm();
-
         add(addNewButton);
 
         HorizontalLayout content = new HorizontalLayout(grid, form);
         content.setSizeFull();
-
         add(content);
 
         setSizeFull();
@@ -39,6 +41,7 @@ public class StationView extends VerticalLayout {
         addNewButton.addClickListener(click -> addStation());
     }
 
+    // Määrittää listan
     private void configureGrid() {
         grid.addColumn(Station::getId).setHeader("ID");
         grid.addColumn(Station::getName).setHeader("Nimi");
@@ -48,10 +51,10 @@ public class StationView extends VerticalLayout {
         grid.addColumn(Station::getArea).setHeader("Alue");
 
         grid.setSizeFull();
-
         grid.asSingleSelect().addValueChangeListener(event -> editStation(event.getValue()));
     }
 
+    // Määrittää buttonit
     private void configureForm() {
         form.setWidth("25em");
 
@@ -60,16 +63,19 @@ public class StationView extends VerticalLayout {
         form.getCancelButton().addClickListener(event -> closeEditor());
     }
 
+    // Hakee tiedot tietokannasta
     private void updateList() {
         grid.setItems(stationService.findAll());
     }
 
+    // Lisää uuden
     private void addStation() {
         grid.asSingleSelect().clear();
         form.setStation(new Station());
         form.setVisible(true);
     }
 
+    // Avaa valitun muokattavaksi
     private void editStation(Station station) {
         if (station == null) {
             closeEditor();
@@ -79,6 +85,7 @@ public class StationView extends VerticalLayout {
         }
     }
 
+    // Tallentaa muutokset
     private void saveStation() {
         Station station = form.getStation();
 
@@ -90,6 +97,7 @@ public class StationView extends VerticalLayout {
         }
     }
 
+    // Poistaa valitun
     private void deleteStation() {
         Station station = form.getStation();
 
@@ -98,10 +106,10 @@ public class StationView extends VerticalLayout {
             updateList();
             closeEditor();
             Notification.show("Asema poistettu");
-
         }
     }
 
+    // Sulkee ja siivoaa formin
     private void closeEditor() {
         form.setStation(null);
         form.setVisible(false);
