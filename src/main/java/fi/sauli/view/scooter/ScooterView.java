@@ -14,7 +14,6 @@ import fi.sauli.service.ScooterService;
 import com.vaadin.flow.component.notification.Notification;
 
 
-//@Route("scooters")
 @Route(value = "scooters", layout = MainLayout.class)
 @Menu(title = "Potkulaudat")
 public class ScooterView extends VerticalLayout {
