@@ -48,7 +48,7 @@ public class ScooterView extends VerticalLayout {
          grid.addColumn(Scooter::getId).setHeader("ID");
          grid.addColumn(Scooter::getSerialNumber).setHeader("Sarjanumero");
          grid.addColumn(Scooter::getModel).setHeader("Malli");
-         grid.addColumn(Scooter::getBatteryLevel).setHeader("Akun varaustaso");
+         grid.addColumn(Scooter::getBatteryLevel).setHeader("Akun varaustaso (%)");
          grid.addColumn(Scooter::getStatus).setHeader("Status");
          grid.addColumn(Scooter::getManufactureYear).setHeader("Valmistusvuosi");
 
