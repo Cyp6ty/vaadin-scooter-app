@@ -44,11 +44,11 @@ public class StationView extends VerticalLayout {
     // Määrittää listan
     private void configureGrid() {
         grid.addColumn(Station::getId).setHeader("ID");
-        grid.addColumn(Station::getName).setHeader("Nimi");
+        grid.addColumn(Station::getName).setHeader("Aseman nimi");
         grid.addColumn(Station::getCity).setHeader("Kaupunki");
         grid.addColumn(Station::getAddress).setHeader("Osoite");
         grid.addColumn(Station::getCapacity).setHeader("Kapasiteetti");
-        grid.addColumn(Station::getArea).setHeader("Alue");
+        grid.addColumn(Station::getArea).setHeader("Kaupungin osa");
 
         grid.setSizeFull();
         grid.asSingleSelect().addValueChangeListener(event -> editStation(event.getValue()));
