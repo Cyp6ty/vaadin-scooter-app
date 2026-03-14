@@ -48,8 +48,10 @@ public class StationForm extends FormLayout {
         this.station = station;
 
         if (station != null) {
+            // siirtää entityn formille
             binder.readBean(station);
         } else {
+            // siirtää formin entitylle
             binder.readBean(new Station());
         }
     }
