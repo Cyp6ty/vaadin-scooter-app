@@ -1,9 +1,13 @@
 package fi.sauli.base.ui;
 
+import com.vaadin.flow.component.html.Image;
+
+
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.SvgIcon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.Scroller;
@@ -25,12 +29,10 @@ public final class MainLayout extends AppLayout {
     }
 
     private Component createHeader() {
-        // TODO Replace with real application logo and name
-        var appLogo = VaadinIcon.CUBES.create();
-        appLogo.setSize("48px");
-        appLogo.setColor("green");
+        var appLogo = new Image("images/logo3.png", "Scooter Management");
+        appLogo.setHeight("200px");
 
-        var appName = new Span("My Application");
+        var appName = new Span("");
         appName.getStyle().setFontWeight(Style.FontWeight.BOLD);
 
         var header = new VerticalLayout(appLogo, appName);
