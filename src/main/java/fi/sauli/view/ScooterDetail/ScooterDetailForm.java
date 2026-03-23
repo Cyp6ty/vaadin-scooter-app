@@ -1,6 +1,7 @@
 package fi.sauli.view.ScooterDetail;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
@@ -9,6 +10,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import fi.sauli.entity.Scooter;
 import fi.sauli.entity.ScooterDetail;
+import fi.sauli.service.ScooterService;
 
 
 public class ScooterDetailForm extends FormLayout {
@@ -20,6 +22,9 @@ public class ScooterDetailForm extends FormLayout {
     private TextField qrCode = new TextField("QR-koodi");
     private NumberField weight = new NumberField ("Paino (kg)");
 
+    // Relaatio kenttä
+    private ComboBox<Scooter> scooter = new ComboBox<>("Potkulauta");
+
     // Buttonit
     private Button save = new Button("Tallenna");
     private Button delete = new Button("Poista");
@@ -27,8 +32,15 @@ public class ScooterDetailForm extends FormLayout {
 
     private Binder<ScooterDetail> binder = new Binder<>(ScooterDetail.class);
 
+    private final ScooterService scooterService;
+
+    private ScooterDetail scooterDetail;
+
+
     // --- Konstruktor ---
-    public ScooterDetailForm() {
+    public ScooterDetailForm(ScooterService scooterService) {
+        this.scooterService = scooterService;
+
         setWidth("25em");
         add(
                 firmwareVersion,
@@ -36,13 +48,28 @@ public class ScooterDetailForm extends FormLayout {
                 lastInspectionDate,
                 qrCode,
                 weight,
+                scooter,
                 save,
                 delete,
                 cancel
         );
 
-        // --- Tarkistukset ---
-        // (ilmoitus käyttäjälle jos arvot väärin)
+        configureFields();
+        configureValidation();
+    }
+
+    // Asettaa ComBoxin sisällön
+    private void configureFields() {
+        scooter.setItems(scooterService.findAll());
+        scooter.setItemLabelGenerator(s ->
+                s.getSerialNumber() + " - " + s.getModel());
+        scooter.setPlaceholder("Valitse potkulauta");
+        scooter.setClearButtonVisible(true);
+    }
+
+    // --- Tarkistukset ---
+    private void configureValidation() {
+
         binder.forField(firmwareVersion)
                 .asRequired("Syötä ohjelmistoverio")
                 .withValidator(text -> text.trim().length() >= 5,
@@ -74,22 +101,26 @@ public class ScooterDetailForm extends FormLayout {
         binder.forField(weight)
                 .asRequired("Syötä paino")
                 .withValidator(w -> w > 0,
-                        "Paino ei voi olla negatiivinen luku")
+                        "Paino ei voi olla nolla tai pienempi")
                 .bind(ScooterDetail::getWeight,
                         ScooterDetail::setWeight);
 
+        binder.forField(scooter)
+                .asRequired("Valitse potkulauta")
+                .bind(ScooterDetail::getScooter,
+                        ScooterDetail::setScooter);
     }
 
-    private ScooterDetail scooterDetail;
 
     public void setScooterDetail(ScooterDetail scooterDetail) {
         this.scooterDetail = scooterDetail;
 
+        // Päivittää valinnat kun form avataan
+        scooter.setItems(scooterService.findAll());
+
         if (scooterDetail != null) {
-            // siirtää entityn formille
             binder.readBean(scooterDetail);
         } else {
-            // siirtää formin entitylle
             binder.readBean(new ScooterDetail());
         }
     }
