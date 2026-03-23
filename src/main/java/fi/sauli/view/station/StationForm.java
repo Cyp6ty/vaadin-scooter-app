@@ -54,8 +54,8 @@ public class StationForm extends FormLayout {
 
         binder.forField(address)
                 .asRequired("Syötä osoite")
-                .withValidator(text -> text.trim().length() >= 3,
-                        "Kaupungin nimi tulee olla vähintään 3 merkkiä")
+                .withValidator(text -> text.trim().length() >= 5,
+                        "Osoitteen tulee olla vähintään 5 merkkiä")
                 .bind(Station::getAddress,
                         Station::setAddress);
 
