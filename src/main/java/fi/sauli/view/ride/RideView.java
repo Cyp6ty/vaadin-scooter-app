@@ -112,7 +112,7 @@ public class RideView extends VerticalLayout {
             rideService.save(ride);
             updateList();
             closeEditor();
-            Notification.show("Uusi ajo tallennettu");
+            Notification.show("Ajo tallennettu");
         }
     }
 
@@ -124,7 +124,7 @@ public class RideView extends VerticalLayout {
             rideService.delete(ride);
             updateList();
             closeEditor();
-            Notification.show("Potkulauta poistettu");
+            Notification.show("Ajo poistettu");
         }
     }
 
