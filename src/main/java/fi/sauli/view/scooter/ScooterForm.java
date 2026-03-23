@@ -2,11 +2,16 @@ package fi.sauli.view.scooter;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.combobox.MultiSelectComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import fi.sauli.entity.Feature;
 import fi.sauli.entity.Scooter;
+import fi.sauli.entity.Station;
+import fi.sauli.service.FeatureService;
+import fi.sauli.service.StationService;
 
 public class ScooterForm extends FormLayout {
 
@@ -17,6 +22,10 @@ public class ScooterForm extends FormLayout {
     private ComboBox<String> status = new ComboBox<>("Status");
     private IntegerField manufactureYear = new IntegerField("Valmistusvuosi");
 
+    // Relaatio kentät
+    private ComboBox<Station> station = new ComboBox<>("Asema");
+    private MultiSelectComboBox<Feature> features = new MultiSelectComboBox<>("Ominaisuudet");
+
     // Buttonit
     private Button save = new Button("Tallenna");
     private Button delete = new Button("Poista");
@@ -24,8 +33,19 @@ public class ScooterForm extends FormLayout {
 
     private Binder<Scooter> binder = new Binder<>(Scooter.class);
 
+    private final StationService stationService;
+    private final FeatureService featureService;
+
+    private Scooter scooter;
+
+
     // --- Konstruktor ---
-    public ScooterForm() {
+    public ScooterForm(StationService stationService,
+                       FeatureService featureService) {
+
+        this.stationService = stationService;
+        this.featureService = featureService;
+
         setWidth("25em");
         add(
                 model,
@@ -33,13 +53,22 @@ public class ScooterForm extends FormLayout {
                 batteryLevel,
                 status,
                 manufactureYear,
+                station,
+                features,
                 save,
                 delete,
                 cancel
         );
 
-        // Statuksen valittavat tilat
-        status.setItems("" +
+        configureFields();
+        configureValidation();
+    }
+
+    // Asettaa ComBoxien sisällön
+    private void configureFields() {
+
+        // Status
+        status.setItems(
                 "AVAILABLE",
                 "IN_USE",
                 "MAINTENANCE",
@@ -48,14 +77,27 @@ public class ScooterForm extends FormLayout {
         status.setPlaceholder("Valitse status");
         status.setClearButtonVisible(true);
 
-        // --- Tarkistukset ---
-        // (ilmoitus käyttäjälle jos arvot väärin)
+        // Station
+        station.setItems(stationService.findAll());
+        station.setItemLabelGenerator(s ->
+                s.getCity() + " - " + s.getName());
+        station.setPlaceholder("Valitse asema");
+        station.setClearButtonVisible(true);
+
+        // Features
+        features.setItems(featureService.findAll());
+        features.setItemLabelGenerator(Feature::getName);
+    }
+
+
+    // --- Tarkistukset ---
+    private void configureValidation() {
+
         binder.forField(model)
                 .asRequired("Syötä malli")
-                .withValidator(text -> text.trim().length() >= 5,
-                        "Mallin tulee olla vähintään 5 merkkiä")
-                .bind(Scooter::getModel,
-                        Scooter::setModel);
+                .withValidator(text -> text.trim().length() >= 3,
+                        "Mallin tulee olla vähintään 3 merkkiä")
+                .bind(Scooter::getModel, Scooter::setModel);
 
         binder.forField(serialNumber)
                 .asRequired("Syötä sarjanumero")
@@ -82,18 +124,26 @@ public class ScooterForm extends FormLayout {
                         "Valmistusvuosi tulee olla väliltä 2015-2026")
                 .bind(Scooter::getManufactureYear,
                         Scooter::setManufactureYear);
+
+        binder.forField(station)
+                .asRequired("Valitse asema")
+                .bind(Scooter::getStation, Scooter::setStation);
+
+        binder.forField(features)
+                .bind(Scooter::getFeatures, Scooter::setFeatures);
     }
 
-    private Scooter scooter;
 
     public void setScooter(Scooter scooter) {
         this.scooter = scooter;
 
+        // Päivittää kun form avataan
+        station.setItems(stationService.findAll());
+        features.setItems(featureService.findAll());
+
         if (scooter != null) {
-            // siirtää entityn formille
             binder.readBean(scooter);
         } else {
-            // siirtää formin entitylle
             binder.readBean(new Scooter());
         }
     }

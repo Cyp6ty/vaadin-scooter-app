@@ -9,9 +9,14 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import fi.sauli.base.ui.MainLayout;
+import fi.sauli.entity.Feature;
 import fi.sauli.entity.Scooter;
+import fi.sauli.service.FeatureService;
 import fi.sauli.service.ScooterService;
 import com.vaadin.flow.component.notification.Notification;
+import fi.sauli.service.StationService;
+
+import java.util.stream.Collectors;
 
 
 @Route(value = "scooters", layout = MainLayout.class)
@@ -20,12 +25,16 @@ public class ScooterView extends VerticalLayout {
 
      private final ScooterService scooterService;
 
-     private Grid<Scooter> grid =  new Grid<>(Scooter.class, false);
-     private ScooterForm form = new ScooterForm();
+     private Grid<Scooter> grid = new Grid<>(Scooter.class, false);
+     private ScooterForm form;
      private Button addNewButton = new Button("Lisää uusi potkulauta");
 
-     public ScooterView(ScooterService scooterService) {
+     public ScooterView(ScooterService scooterService,
+                        StationService stationService,
+                        FeatureService fetureService) {
+
          this.scooterService = scooterService;
+         this.form = new ScooterForm(stationService,fetureService);
 
          configureGrid();
          configureForm();
@@ -51,14 +60,34 @@ public class ScooterView extends VerticalLayout {
          grid.addColumn(Scooter::getStatus).setHeader("Status");
          grid.addColumn(Scooter::getManufactureYear).setHeader("Valmistusvuosi");
 
+         grid.addColumn(scooter ->
+                         scooter.getStation() != null
+                                 ? scooter.getStation().getCity() + " - " + scooter.getStation().getName()
+                                 : "")
+                        .setHeader("Asema");
+
+         /*
+         * Tämä aiheuttaa "lazy loading" virheen,
+           joten featuret eivät näy gridissä,
+           mutta ne voi lisätä scooterille UI:ssa
+
+         grid.addColumn(scooter ->
+                         scooter.getFeatures() != null
+                                 ? scooter.getFeatures().stream()
+                                 .map(Feature::getName)
+                                 .collect(Collectors.joining(", "))
+                                 : "")
+                        .setHeader("Ominaisuudet");
+        */
+
          grid.setSizeFull();
-         grid.asSingleSelect().addValueChangeListener(event -> editScooter(event.getValue()));
+         grid.asSingleSelect().addValueChangeListener(
+                 event -> editScooter(event.getValue()));
      }
 
      // Määrittää buttonit
      private void configureForm() {
          form.setWidth("25em");
-
          form.getSaveButton().addClickListener(event -> saveScooter());
          form.getDeleteButton().addClickListener(event -> deleteScooter());
          form.getCancelButton().addClickListener(event -> closeEditor());
@@ -95,6 +124,8 @@ public class ScooterView extends VerticalLayout {
              updateList();
              closeEditor();
              Notification.show("Uusi potkulauta tallennettu");
+         } else {
+             Notification.show("Tarkista lomakkeen tiedot");
          }
      }
 
