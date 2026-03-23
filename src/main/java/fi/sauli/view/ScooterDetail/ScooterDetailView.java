@@ -10,6 +10,7 @@ import com.vaadin.flow.router.Route;
 import fi.sauli.base.ui.MainLayout;
 import fi.sauli.entity.ScooterDetail;
 import fi.sauli.service.ScooterDetailService;
+import fi.sauli.service.ScooterService;
 
 
 @Route(value = "scooterdetails", layout = MainLayout.class)
@@ -19,11 +20,14 @@ public class ScooterDetailView extends VerticalLayout {
     private final ScooterDetailService scooterDetailService;
 
     private Grid<ScooterDetail> grid = new Grid<>(ScooterDetail.class, false);
-    private ScooterDetailForm form = new ScooterDetailForm();
+    private ScooterDetailForm form;
     private Button addNewButton = new Button("Lisää uusi lisätieto");
 
-    public ScooterDetailView(ScooterDetailService scooterDetailService) {
+    public ScooterDetailView(ScooterDetailService scooterDetailService,
+                             ScooterService scooterService) {
+
         this.scooterDetailService = scooterDetailService;
+        this.form = new ScooterDetailForm(scooterService);
 
         configureGrid();
         configureForm();
@@ -49,8 +53,15 @@ public class ScooterDetailView extends VerticalLayout {
         grid.addColumn(ScooterDetail::getQrCode).setHeader("QR-koodi");
         grid.addColumn(ScooterDetail::getWeight).setHeader("Paino (kg)");
 
+        grid.addColumn(detail ->
+                        detail.getScooter() != null
+                                ? detail.getScooter().getSerialNumber() + " - " + detail.getScooter().getModel()
+                                : "")
+                        .setHeader("Potkulauta");
+
         grid.setSizeFull();
-        grid.asSingleSelect().addValueChangeListener(event -> editDetail(event.getValue()));
+        grid.asSingleSelect().addValueChangeListener(
+                event -> editDetail(event.getValue()));
     }
 
     // Määrittää buttonit
