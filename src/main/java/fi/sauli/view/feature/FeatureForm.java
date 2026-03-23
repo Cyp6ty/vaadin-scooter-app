@@ -182,8 +182,6 @@ public class FeatureForm extends FormLayout {
         return save;
     }
 
-    // todo: Note
-    // POISTO onko tarpeellinen? Fyysinen poisto ei ehkä kannata tässä näkymässä
     public Button getDeleteButton() {
         return delete;
     }
