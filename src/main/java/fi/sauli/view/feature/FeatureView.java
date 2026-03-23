@@ -51,6 +51,17 @@ public class FeatureView extends VerticalLayout {
                 .setHeader("Aktiivisuus");
         grid.addColumn(Feature::getInstallationCost).setHeader("Asennuksen hinta (€)");
 
+        /* Tämä ei toimi vielä oikein.
+        H2-console näyttää tiedot, mutta ei näy UI:ssa. (Lazy loading ongelma)
+
+        grid.addColumn(feature -> {
+            try {
+                return feature.getScooters().size();
+            } catch (Exception e) {
+                return 0;
+            }
+        }).setHeader("Käytössä (kpl)");
+*/
         grid.setSizeFull();
         grid.asSingleSelect().addValueChangeListener(event -> editFeature(event.getValue()));
     }
