@@ -1,5 +1,7 @@
 package fi.sauli.view.scooter;
 
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.menu.MenuEntry;
@@ -8,6 +10,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.theme.lumo.LumoUtility;
 import fi.sauli.base.ui.MainLayout;
 import fi.sauli.entity.Feature;
 import fi.sauli.entity.Scooter;
@@ -38,7 +41,7 @@ public class ScooterView extends VerticalLayout {
 
          configureGrid();
          configureForm();
-         add(addNewButton);
+         add(createInfoBox(), addNewButton);
 
          HorizontalLayout content = new HorizontalLayout(grid, form);
          content.setSizeFull();
@@ -50,6 +53,38 @@ public class ScooterView extends VerticalLayout {
 
          addNewButton.addClickListener(click -> addScooter());
      }
+
+    // Tyylit ja ulkoasu: Tehtävä 4
+    private VerticalLayout createInfoBox() {
+        H2 title = new H2("Potkulautojen hallinta");
+        Paragraph text = new Paragraph("Tässä näkymässä voit lisätä uuden laudan tai poistaa vanhan sekä tarkastella ja muokata olemassa olevia.");
+        VerticalLayout infoBox = new VerticalLayout(title, text);
+        infoBox.setAlignItems(Alignment.START);
+
+        infoBox.addClassName("glass-border");
+        infoBox.addClassNames(
+                LumoUtility.MaxWidth.SCREEN_LARGE,
+                LumoUtility.BackdropBlur.MEDIUM,
+                LumoUtility.Padding.MEDIUM,
+                LumoUtility.BoxShadow.SMALL,
+                LumoUtility.Border.ALL,
+                LumoUtility.BorderColor.CONTRAST_20,
+                LumoUtility.BorderRadius.MEDIUM,
+                LumoUtility.Margin.SMALL
+        );
+
+        title.addClassNames(
+                LumoUtility.TextColor.PRIMARY,
+                LumoUtility.FontSize.XLARGE
+        );
+
+        text.addClassNames(
+                LumoUtility.TextColor.SECONDARY,
+                LumoUtility.FontSize.LARGE
+        );
+
+        return infoBox;
+    }
 
      // Määrittää listan
      private void configureGrid() {
