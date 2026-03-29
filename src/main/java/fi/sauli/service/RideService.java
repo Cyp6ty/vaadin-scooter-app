@@ -1,6 +1,7 @@
 package fi.sauli.service;
 
 import fi.sauli.entity.Ride;
+import fi.sauli.filter.RideFilter;
 import fi.sauli.repository.RideRepository;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,10 @@ import java.util.Optional;
 
 @Service
 public class RideService {
+
+    public List<Ride> searchRides(RideFilter filter) {
+        return rideRepository.searchRides(filter);
+    }
 
     private final RideRepository rideRepository;
 
