@@ -174,3 +174,57 @@ vaadin-grid {
     border: 1px solid rgba(255, 255, 255, 0.35);
     background: rgba(255, 255, 255, 0.34);
 }
+
+/* FOOTER */
+.app-footer {
+    position: fixed;
+    bottom: 0;
+    left: var(--vaadin-app-layout-drawer-offset-size, 0px);
+    right: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #042b5c;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    width: auto;
+    max-width: 900px;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.footer-link {
+    color: white;
+    text-decoration: underline;
+    white-space: nowrap;
+}
+
+/* Responsiivisuus */
+@media (max-width: 900px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+    }
+    .footer-column {
+        align-items: center;
+        white-space: normal;
+    }
+}
