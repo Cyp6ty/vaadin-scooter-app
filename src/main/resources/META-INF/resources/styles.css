@@ -1,1 +1,176 @@
 /* Add your styles here */
+html {
+    /* FONT */
+    --lumo-font-family: "Segoe UI", Arial, sans-serif;
+
+    /* PRIMARY */
+    --lumo-primary-color: #042b5c;
+    --lumo-primary-color-50pct: rgba(4, 43, 92, 0.5);
+    --lumo-primary-color-10pct: rgba(4, 43, 92, 0.1);
+
+    /* APP COLORS */
+    --app-secondary-color: #3bc6d6;
+    --app-accent-color: #EDA825;
+
+    /* TEXT */
+    --lumo-body-text-color: #040407;
+    --lumo-secondary-text-color: #3f3f70;
+
+    /* BACKGROUND */
+    --lumo-base-color: #eef3f7;
+    --lumo-contrast-5pct: rgba(255, 255, 255, 0.35);
+    --lumo-contrast-10pct: rgba(255, 255, 255, 0.5);
+
+    /* BORDER RADIUS */
+    --lumo-border-radius-s: 10px;
+    --lumo-border-radius-m: 14px;
+    --lumo-border-radius-l: 20px;
+}
+
+/* GENERAL BACKGROUND */
+body {
+    background:
+        linear-gradient(
+                145deg,
+                var(--app-accent-color),
+                var(--app-secondary-color));
+    background-attachment: fixed;
+}
+
+
+/* HOMEVIEW */
+.home-view {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+}
+.home-view h1 {
+    font-size: 42px;
+    color: var(--lumo-primary-color);
+    margin-bottom: 10px;
+}
+.home-view p {
+    font-size: 18px;
+    color: var(--lumo-secondary-text-color);
+}
+.home-view vaadin-button {
+    margin-top: 10px;
+}
+
+
+/* BUTTONS  */
+vaadin-button {
+    font-weight: 500;
+    color: white;
+    background: #0988bf;
+    border-radius: var(--lumo-border-radius-s);
+    box-shadow:
+            0 8px 24px rgba(4, 43, 92, 0.2),
+            inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.25s ease;
+    margin-bottom: 5px;
+}
+vaadin-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+            120deg,
+            rgba(255, 255, 255, 0.2),
+            transparent
+    );
+    opacity: 0.6;
+    pointer-events: none;
+}
+/* Hover */
+vaadin-button:hover {
+    background: rgba(12, 140, 195, 0.77);
+    border: 1px solid rgba(218, 218, 218, 0.69);
+    box-shadow:
+            0 12px 30px rgba(4, 43, 92, 0.3),
+            inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+/* Focus */
+vaadin-button:focus,
+vaadin-button:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.85);
+    outline-offset: 2px;
+}
+/* Active */
+vaadin-button:active {
+    transform: translateY(0);
+    box-shadow:
+            0 6px 16px rgba(4, 43, 92, 0.2),
+            inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+/* Form buttons */
+vaadin-button[theme~="success"] {
+    background: var(--lumo-success-color);
+}
+vaadin-button[theme~="error"] {
+    background: var(--lumo-error-color);
+}
+vaadin-button[theme~="tertiary"] {
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    background: var(--lumo-tertiary-color);
+}
+
+
+/* TextField, NumberField, ComboBox, TextArea */
+vaadin-text-field::part(input-field),
+vaadin-number-field::part(input-field),
+vaadin-combo-box::part(input-field),
+vaadin-text-area::part(input-field),
+vaadin-date-time-picker::part(input-field),
+vaadin-date-picker::part(input-field),
+vaadin-time-picker::part(input-field) {
+    border-radius: var(--lumo-border-radius-s);
+    background: rgba(255, 255, 255, 0.38);
+    border: 1px solid rgb(255, 255, 255);
+    box-shadow: 0 8px 24px rgba(31, 38, 135, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+/* Focus */
+vaadin-text-field:focus-within::part(input-field),
+vaadin-number-field:focus-within::part(input-field),
+vaadin-combo-box:focus-within::part(input-field),
+vaadin-text-area:focus-within::part(input-field) {
+    border: 2px solid #0988bf;
+    box-shadow: 0 0 0 3px rgba(59, 198, 214, 0.2);
+}
+
+.ride-filter-bar {
+    padding: 12px;
+    border-radius: var(--lumo-border-radius-m);
+    background: rgba(255, 255, 255, 0.34);
+    box-shadow: 0 8px 24px rgba(31, 38, 135, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+.ride-keyword-field {
+    min-width: 300px;
+}
+
+
+/* Grid */
+vaadin-grid {
+    border-radius: var(--lumo-border-radius-m);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.34);
+    box-shadow: 0 8px 24px rgba(31, 38, 135, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+
+/* SCOOTER VIEW */
+.glass-border {
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.34);
+}
