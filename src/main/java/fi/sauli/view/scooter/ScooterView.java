@@ -45,6 +45,7 @@ public class ScooterView extends VerticalLayout {
 
          HorizontalLayout content = new HorizontalLayout(grid, form);
          content.setSizeFull();
+         content.getStyle().set("padding-bottom", "80px");
          add(content);
 
          setSizeFull();
