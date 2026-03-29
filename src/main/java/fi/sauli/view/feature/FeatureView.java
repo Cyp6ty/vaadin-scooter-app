@@ -13,7 +13,7 @@ import com.vaadin.flow.component.notification.Notification;
 
 
 @Route(value = "features", layout = MainLayout.class)
-@Menu(title = "Ominaisuudet")
+@Menu(title = "Ominaisuudet", icon = "cog")
 public class FeatureView extends VerticalLayout {
 
     private final FeatureService featureService;

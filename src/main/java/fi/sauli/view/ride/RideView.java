@@ -21,7 +21,7 @@ import fi.sauli.service.ScooterService;
 import fi.sauli.service.StationService;
 
 @Route(value = "rides", layout = MainLayout.class)
-@Menu(title = "Ajot")
+@Menu(title = "Ajot", icon = "road")
 public class RideView extends VerticalLayout {
 
     private final RideService rideService;

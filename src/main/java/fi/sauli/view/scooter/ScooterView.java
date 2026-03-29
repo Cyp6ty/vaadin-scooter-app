@@ -5,7 +5,6 @@ import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.menu.MenuEntry;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 
 
 @Route(value = "scooters", layout = MainLayout.class)
-@Menu(title = "Potkulaudat")
+@Menu(title = "Potkulaudat", icon = "cart")
 public class ScooterView extends VerticalLayout {
 
      private final ScooterService scooterService;

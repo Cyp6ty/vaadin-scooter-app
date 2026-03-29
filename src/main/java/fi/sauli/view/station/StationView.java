@@ -14,7 +14,7 @@ import com.vaadin.flow.component.notification.Notification;
 
 //@Route("stations")
 @Route(value = "stations", layout = MainLayout.class)
-@Menu(title = "Asemat")
+@Menu(title = "Asemat", icon = "map-marker")
 public class StationView extends VerticalLayout {
 
     private final StationService stationService;

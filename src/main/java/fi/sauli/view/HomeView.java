@@ -9,7 +9,7 @@ import com.vaadin.flow.router.Route;
 import fi.sauli.base.ui.MainLayout;
 
 @Route(value = "", layout = MainLayout.class)
-@Menu(title = "Etusivu")
+@Menu(title = "Etusivu", icon = "home")
 public class HomeView extends VerticalLayout {
 
     public HomeView() {

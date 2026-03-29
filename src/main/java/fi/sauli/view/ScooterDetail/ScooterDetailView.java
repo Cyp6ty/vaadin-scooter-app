@@ -14,7 +14,7 @@ import fi.sauli.service.ScooterService;
 
 
 @Route(value = "scooterdetails", layout = MainLayout.class)
-@Menu(title = "Lisätiedot")
+@Menu(title = "Lisätiedot", icon = "info-circle")
 public class ScooterDetailView extends VerticalLayout {
 
     private final ScooterDetailService scooterDetailService;
