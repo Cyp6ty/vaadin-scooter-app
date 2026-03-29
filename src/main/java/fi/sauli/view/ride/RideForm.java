@@ -1,5 +1,6 @@
 package fi.sauli.view.ride;
 
+import com.vaadin.flow.component.button.ButtonVariant;
 import fi.sauli.entity.Ride;
 import fi.sauli.entity.Scooter;
 import fi.sauli.entity.Station;
@@ -50,6 +51,10 @@ public class RideForm extends FormLayout {
                 delete,
                 cancel
         );
+        // Tyylit ja ulkoasu - Tehtävä 2-C
+        save.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_SUCCESS);
+        delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
+        cancel.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
 
         // Kenttien asetukset
         startTime.setStep(java.time.Duration.ofMinutes(1));
