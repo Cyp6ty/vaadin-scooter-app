@@ -94,7 +94,7 @@ public final class MainLayout extends AppLayout {
         // Tekstit
         var text1 = new Span("© 2026 Sauli Pitkäkangas");
         var text2 = new Span("Scooter Fleet Management");
-        var text3 = new Span("Kurssi: Java Web-ohjelmointi");
+        var text3 = new Span("Java Web-ohjelmointi");
         var text4 = new Span("Vaadin harjoitustyö");
 
         // Sarakkeet
