@@ -53,7 +53,7 @@ public class Scooter {
 
     // M:N - Yhdellä scooterilla voi olla monta ominaisuutta
     // OMISTAVA PUOLI
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "scooter_feature",
             joinColumns = @JoinColumn(name = "scooter_id"),
