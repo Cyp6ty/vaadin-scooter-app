@@ -4,17 +4,17 @@ html {
     --lumo-font-family: "Segoe UI", Arial, sans-serif;
 
     /* PRIMARY */
-    --lumo-primary-color: #042b5c;
+    --lumo-primary-color: #032451;
     --lumo-primary-color-50pct: rgba(4, 43, 92, 0.5);
     --lumo-primary-color-10pct: rgba(4, 43, 92, 0.1);
 
     /* APP COLORS */
     --app-secondary-color: #3bc6d6;
-    --app-accent-color: #EDA825;
+    --app-accent-color: #ededed;
 
     /* TEXT */
     --lumo-body-text-color: #040407;
-    --lumo-secondary-text-color: #3f3f70;
+    --lumo-secondary-text-color: #1c1c32;
 
     /* BACKGROUND */
     --lumo-base-color: #eef3f7;
@@ -50,12 +50,22 @@ body {
     color: var(--lumo-primary-color);
     margin-bottom: 10px;
 }
+.home-view h2 {
+    font-size: 32px;
+    color: var(--lumo-primary-color);
+    margin-bottom: 10px;
+}
 .home-view p {
     font-size: 18px;
-    color: var(--lumo-secondary-text-color);
+    color: var(--lumo-body-text-color);
 }
 .home-view vaadin-button {
     margin-top: 10px;
+}
+.home-view vaadin-button:hover {
+    background-color: var(--lumo-secondary-color);
+    color: var(--lumo-secondary-color);
+    border: none;
 }
 
 
