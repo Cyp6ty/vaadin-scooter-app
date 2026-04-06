@@ -1,5 +1,6 @@
 package fi.sauli.view.scooter;
 
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.router.Menu;
@@ -20,6 +21,7 @@ import fi.sauli.service.StationService;
 
 import java.util.stream.Collectors;
 
+// TODO: 'Poista' -nappia ei tarvitsisi näyttää formissa jos lisätään uusi
 
 @Route(value = "scooters", layout = MainLayout.class)
 @Menu(title = "Potkulaudat", icon = "cart")
@@ -28,6 +30,7 @@ public class ScooterView extends VerticalLayout {
      private final ScooterService scooterService;
 
      private Grid<Scooter> grid = new Grid<>(Scooter.class, false);
+     private Dialog dialog = new Dialog();
      private ScooterForm form;
      private Button addNewButton = new Button("Lisää uusi potkulauta");
 
@@ -41,8 +44,13 @@ public class ScooterView extends VerticalLayout {
          configureGrid();
          configureForm();
          add(createInfoBox(), addNewButton);
+         VerticalLayout dialogLayout = new VerticalLayout(form);
+         dialog.add(dialogLayout);
+         dialog.setModal(true);
+         dialog.setCloseOnEsc(true);
+         dialog.setCloseOnOutsideClick(true);
 
-         HorizontalLayout content = new HorizontalLayout(grid, form);
+         HorizontalLayout content = new HorizontalLayout(grid);
          content.setSizeFull();
          content.getStyle().set("padding-bottom", "80px");
          add(content);
@@ -57,7 +65,9 @@ public class ScooterView extends VerticalLayout {
     // Tyylit ja ulkoasu: Tehtävä 4
     private VerticalLayout createInfoBox() {
         H2 title = new H2("Potkulautojen hallinta");
-        Paragraph text = new Paragraph("Tässä näkymässä voit lisätä uuden laudan tai poistaa vanhan sekä tarkastella ja muokata olemassa olevia.");
+        Paragraph text = new Paragraph("Tässä näkymässä voit lisätä uuden laudan, poistaa vanhan sekä tarkastella ja muokata olemassa olevia. " +
+                "Lisää uusi klikkaamalla 'Lisää uusi potkulauta'\n" +
+                "ja muokkaa olemassa olevaa tai poista haluttu klikkaamalla riviä alla olevasta listasta.");
         VerticalLayout infoBox = new VerticalLayout(title, text);
         infoBox.setAlignItems(Alignment.START);
 
@@ -137,16 +147,18 @@ public class ScooterView extends VerticalLayout {
      private void addScooter() {
          grid.asSingleSelect().clear();
          form.setScooter(new Scooter());
-         form.setVisible(true);
+         dialog.setHeaderTitle("Lisää uusi potkulauta");
+         dialog.open();
      }
 
      // Avaa valitun muokattavaksi
      private void editScooter(Scooter scooter) {
         if (scooter == null) {
-             closeEditor();
+            closeEditor();
         } else {
             form.setScooter(scooter);
-            form.setVisible(true);
+            dialog.setHeaderTitle("Muokkaa potkulaudan tietoja");
+            dialog.open();
         }
      }
 
@@ -179,6 +191,7 @@ public class ScooterView extends VerticalLayout {
      // Sulkee ja siivoaa formin
     private void closeEditor() {
         form.setScooter(null);
-        form.setVisible(false);
+        grid.asSingleSelect().clear();
+        dialog.close();
     }
 }
