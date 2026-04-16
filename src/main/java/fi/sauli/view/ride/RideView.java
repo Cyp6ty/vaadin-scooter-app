@@ -19,9 +19,11 @@ import fi.sauli.filter.RideFilter;
 import fi.sauli.service.RideService;
 import fi.sauli.service.ScooterService;
 import fi.sauli.service.StationService;
+import jakarta.annotation.security.PermitAll;
 
 @Route(value = "rides", layout = MainLayout.class)
 @Menu(title = "Ajot", icon = "road")
+@PermitAll
 public class RideView extends VerticalLayout {
 
     private final RideService rideService;

@@ -10,11 +10,12 @@ import fi.sauli.base.ui.MainLayout;
 import fi.sauli.entity.Station;
 import fi.sauli.service.StationService;
 import com.vaadin.flow.component.notification.Notification;
+import jakarta.annotation.security.RolesAllowed;
 
 
-//@Route("stations")
 @Route(value = "stations", layout = MainLayout.class)
 @Menu(title = "Asemat", icon = "map-marker")
+@RolesAllowed({ "SUPER", "USER" })
 public class StationView extends VerticalLayout {
 
     private final StationService stationService;
@@ -23,6 +24,7 @@ public class StationView extends VerticalLayout {
     private StationForm form = new StationForm();
     private Button addNewButton = new Button("Lisää uusi asema");
 
+    // --- Konstruktor ---
     public StationView(StationService stationService) {
         this.stationService = stationService;
 

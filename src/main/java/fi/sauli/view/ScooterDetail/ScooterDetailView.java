@@ -11,10 +11,12 @@ import fi.sauli.base.ui.MainLayout;
 import fi.sauli.entity.ScooterDetail;
 import fi.sauli.service.ScooterDetailService;
 import fi.sauli.service.ScooterService;
+import jakarta.annotation.security.RolesAllowed;
 
 
 @Route(value = "scooterdetails", layout = MainLayout.class)
 @Menu(title = "Lisätiedot", icon = "info-circle")
+@RolesAllowed({ "SUPER", "USER" })
 public class ScooterDetailView extends VerticalLayout {
 
     private final ScooterDetailService scooterDetailService;

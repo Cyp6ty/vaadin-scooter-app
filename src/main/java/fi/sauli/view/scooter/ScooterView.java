@@ -18,6 +18,7 @@ import fi.sauli.service.FeatureService;
 import fi.sauli.service.ScooterService;
 import com.vaadin.flow.component.notification.Notification;
 import fi.sauli.service.StationService;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.stream.Collectors;
 
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 
 @Route(value = "scooters", layout = MainLayout.class)
 @Menu(title = "Potkulaudat", icon = "cart")
+@RolesAllowed({ "SUPER", "USER" })
 public class ScooterView extends VerticalLayout {
 
      private final ScooterService scooterService;

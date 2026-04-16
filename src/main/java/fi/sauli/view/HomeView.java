@@ -10,10 +10,12 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import fi.sauli.base.ui.MainLayout;
 
 @Route(value = "", layout = MainLayout.class)
 @Menu(title = "Etusivu", icon = "home")
+@AnonymousAllowed
 public class HomeView extends VerticalLayout {
 
     // --- Konstruktor ---
@@ -63,7 +65,7 @@ public class HomeView extends VerticalLayout {
         return layout;
     }
 
-
+    // TODO: arvot tulee olla oikeat luvut, ei kovakoodattuja
     // Stats
     private FlexLayout createStatsSection() {
         FlexLayout stats = new FlexLayout(
