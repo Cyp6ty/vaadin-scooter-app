@@ -1,6 +1,7 @@
 package fi.sauli.base.ui;
 
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Image;
 
@@ -22,17 +23,57 @@ import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
+import com.vaadin.flow.spring.security.AuthenticationContext;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+import fi.sauli.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Optional;
 
 @Layout
 @AnonymousAllowed
 public final class MainLayout extends AppLayout {
 
-    MainLayout() {
+    private final transient AuthenticationContext authContext;
+    private final UserService userService;
+
+    // --- Konstruktor ---
+    MainLayout(AuthenticationContext authContext,
+               UserService userService) {
+        this.authContext = authContext;
+        this.userService = userService;
+
+        addClassName("main-view");
         createNavbar();
         setPrimarySection(Section.DRAWER);
         addToDrawer(createHeader(), new Scroller(createSideNav()));
         addToNavbar(createFooter());
+    }
+
+    // Dynaaminen Login/Logout button
+    private Button createAuthButton() {
+        boolean loggedIn = authContext.getAuthenticatedUser(Object.class).isPresent();
+
+        if (loggedIn) {
+            var logoutBtn = new Button("Kirjaudu ulos");
+            logoutBtn.getStyle().set("font-size", "small");
+            logoutBtn.addClickListener(event ->
+                    authContext.logout());
+            return logoutBtn;
+        } else {
+            var loginBtn = new Button("Kirjaudu sisään");
+            loginBtn.getStyle().set("font-size", "small");
+            loginBtn.addClickListener(event ->
+                    loginBtn.getUI().ifPresent(ui -> ui.navigate("login"))
+            );
+            return loginBtn;
+        }
+    }
+
+    // Hakee käyttäjänimen
+    private String getLoggedInUsername() {
+        return userService.getCurrentUser().getUsername();
     }
 
     private void createNavbar() {
@@ -41,11 +82,25 @@ public final class MainLayout extends AppLayout {
         var title = new Span("Scooter Fleet Management");
         title.getStyle().setFontWeight(Style.FontWeight.BOLD);
 
-        var user = new Span("Käyttäjä"); // vai placeholder?
-        var logout = new com.vaadin.flow.component.button.Button("Kirjaudu ulos");
-        logout.getStyle().set("font-size", "small");
+        var authBtn = createAuthButton();
 
-        var header = new HorizontalLayout(toggle, title, user, logout);
+        Component authSection;
+        if (authContext.isAuthenticated()) {
+            var username = new Span("Hei, " + getLoggedInUsername());
+            username.addClassName("navbar-username");
+
+            var authLayout = new HorizontalLayout(username, authBtn);
+            authLayout.setPadding(false);
+            authLayout.setSpacing(true);
+            authLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+            authLayout.addClassName("navbar-auth");
+
+            authSection = authLayout;
+        } else {
+            authSection = authBtn;
+        }
+
+        var header = new HorizontalLayout(toggle, title, authSection);
         header.setWidthFull();
         header.setAlignItems(FlexComponent.Alignment.CENTER);
         header.expand(title);
