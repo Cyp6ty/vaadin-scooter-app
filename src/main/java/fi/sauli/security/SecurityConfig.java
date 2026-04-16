@@ -30,7 +30,7 @@ public class SecurityConfig {
         );
 
         http.with(VaadinSecurityConfigurer.vaadin(), config -> {
-            config.loginView(LoginView.class);
+            config.loginView(LoginView.class, "/login");
         });
 
         return http.build();
