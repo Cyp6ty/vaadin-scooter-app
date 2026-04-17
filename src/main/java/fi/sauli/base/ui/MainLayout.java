@@ -59,6 +59,7 @@ public final class MainLayout extends AppLayout {
 
         if (loggedIn) {
             var logoutBtn = new Button(getTranslation("nav.button.logout"));
+            logoutBtn.addClassName("logout-button");
             logoutBtn.getStyle().set("font-size", "small");
             logoutBtn.addClickListener(event ->
                     authContext.logout());
@@ -71,6 +72,16 @@ public final class MainLayout extends AppLayout {
             );
             return loginBtn;
         }
+    }
+
+    // Rekisteröidy
+    private Button createRegisterButton() {
+        var  registerBtn = new Button(getTranslation("nav.button.register"));
+        registerBtn.getStyle().set("font-size", "small");
+        registerBtn.addClickListener(event ->
+                registerBtn.getUI().ifPresent(ui -> ui.navigate("register"))
+        );
+        return registerBtn;
     }
 
     // Hakee käyttäjänimen
@@ -158,7 +169,13 @@ public final class MainLayout extends AppLayout {
             authSection = authBtn;
         }
 
-        var rightSide = new HorizontalLayout(languageSwitcher, authSection);
+        HorizontalLayout rightSide;
+
+        if (authContext.isAuthenticated()) {
+            rightSide = new HorizontalLayout(languageSwitcher, authSection);
+        } else {
+            rightSide = new HorizontalLayout(languageSwitcher, createRegisterButton(), authSection);
+        }
         rightSide.setPadding(false);
         rightSide.setSpacing(true);
         rightSide.setAlignItems(FlexComponent.Alignment.CENTER);

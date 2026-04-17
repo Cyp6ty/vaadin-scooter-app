@@ -37,7 +37,8 @@ body {
     background-attachment: fixed;
 }
 
-/* MAIN VIEW - LoginBtn */
+/* MAIN VIEW */
+/* Login-Btn */
 .main-view vaadin-button {
     color: var(--app-accent-color);
 }
@@ -45,6 +46,20 @@ body {
     background-color: var(--app-secondary-color);
     color: var(--app-accent-color);
     border: none;
+}
+
+/* Logout-Btn */
+.main-view vaadin-button.logout-button {
+    /*background: transparent;*/
+    background: rgba(198, 40, 40, 0.2);
+    color: #c62828;
+    border: 1px solid #c62828;
+    border-radius: 8px;
+}
+.main-view vaadin-button.logout-button:hover {
+    background: #c62828;
+    color: white;
+    border: 1px solid #c62828;
 }
 
 /* Navbar */
@@ -61,6 +76,7 @@ body {
     align-items: center;
     min-height: 40px;
 }
+
 
 /* HOME VIEW */
 .home-view {
@@ -94,15 +110,17 @@ body {
 
 /* Kielen vaihto */
 .language-switcher vaadin-button {
-    background: #042b5c;
-    color: white;
+    background: rgba(4, 43, 92, 0.2);
+    color: var(--lumo-secondary-color);
     border-radius: 8px;
+    border: var(--app-secondary-color) 1px solid;
     font-size: 0.75rem;
     min-width: 42px;
     height: 32px;
 }
 .language-switcher vaadin-button:hover {
     background: #374151;
+    border: transparent 1px solid;
 }
 /* Aktiivinen kieli */
 .language-switcher vaadin-button.selected {
@@ -243,7 +261,6 @@ vaadin-grid {
     font-size: 14px;
     box-sizing: border-box;
 }
-
 .footer-content {
     display: flex;
     flex-direction: row;
@@ -253,14 +270,12 @@ vaadin-grid {
     width: auto;
     max-width: 900px;
 }
-
 .footer-column {
     display: flex;
     flex-direction: column;
     gap: 4px;
     white-space: nowrap;
 }
-
 .footer-link {
     color: white;
     text-decoration: underline;
