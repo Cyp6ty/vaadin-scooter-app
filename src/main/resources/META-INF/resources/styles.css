@@ -92,6 +92,24 @@ body {
     border: none;
 }
 
+/* Kielen vaihto */
+.language-switcher vaadin-button {
+    background: #042b5c;
+    color: white;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    min-width: 42px;
+    height: 32px;
+}
+.language-switcher vaadin-button:hover {
+    background: #374151;
+}
+/* Aktiivinen kieli */
+.language-switcher vaadin-button.selected {
+    background: #2563eb;
+    color: white;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+}
 
 /* BUTTONS  */
 vaadin-button {

@@ -13,6 +13,8 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import fi.sauli.base.ui.MainLayout;
 
+import static org.springframework.context.i18n.LocaleContextHolder.setLocale;
+
 @Route(value = "", layout = MainLayout.class)
 @Menu(title = "Etusivu", icon = "home")
 @AnonymousAllowed
@@ -20,6 +22,12 @@ public class HomeView extends VerticalLayout {
 
     // --- Konstruktor ---
     public  HomeView() {
+
+        if (com.vaadin.flow.server.VaadinSession.getCurrent() != null
+                && com.vaadin.flow.server.VaadinSession.getCurrent().getLocale() != null) {
+            setLocale(com.vaadin.flow.server.VaadinSession.getCurrent().getLocale());
+        }
+
         addClassName("home-view");
         setWidthFull();
         setAlignItems(Alignment.CENTER);
@@ -33,18 +41,15 @@ public class HomeView extends VerticalLayout {
     // HeroSection
     private VerticalLayout createHeroSection() {
 
-        H1 title = new H1("Scooter Fleet Management");
-        Paragraph text = new Paragraph(
-                "Hallitse potkulautoja, ajoja, asemia ja potkulautojen ominaisuuksia. " +
-                        "Seuraa kaluston tilaa ja siirry sovelluksen hallintasivuille."
-        );
+        H1 title = new H1(getTranslation("home.title"));
+        Paragraph text = new Paragraph(getTranslation("home.description"));
 
-        Button rides = new Button("Siirry ajoihin");
+        Button rides = new Button(getTranslation("home.button.rides"));
         rides.addClickListener(e ->
                 rides.getUI().ifPresent(ui -> ui.navigate("rides"))
         );
 
-        Button scooters = new Button("Siirry potkulautoihin");
+        Button scooters = new Button(getTranslation("home.button.scooters"));
         scooters.addClickListener(e ->
                 scooters.getUI().ifPresent(ui -> ui.navigate("scooters"))
         );
@@ -69,11 +74,25 @@ public class HomeView extends VerticalLayout {
     // Stats
     private FlexLayout createStatsSection() {
         FlexLayout stats = new FlexLayout(
-                createStatCard("Potkulaudat", "12", "Rekisteröityä kalustoa", "scooters"),
-                createStatCard("Asemat", "6", "Käytössä olevaa asemaa", "stations"),
-                createStatCard("Ajot", "28", "Tallennettua ajoa", "rides")
+                createStatCard(
+                        getTranslation("home.card.scooters.title"),
+                        "12",
+                        getTranslation("home.card.scooters.description"),
+                        "scooters"
+                ),
+                createStatCard(
+                        getTranslation("home.card.stations.title"),
+                        "6",
+                        getTranslation("home.card.stations.description"),
+                        "stations"
+                ),
+                createStatCard(
+                        getTranslation("home.card.rides.title"),
+                        "28",
+                        getTranslation("home.card.rides.description"),
+                        "rides"
+                )
         );
-
         stats.setWidth("100%");
         stats.setMaxWidth("1100px");
         stats.setJustifyContentMode(FlexLayout.JustifyContentMode.CENTER);
@@ -91,7 +110,7 @@ public class HomeView extends VerticalLayout {
         Span value = new Span(valueText);
         Paragraph description = new Paragraph(descriptionText);
 
-        Button open = new Button("Avaa");
+        Button open = new Button(getTranslation("home.button.open"));
         open.addClickListener(e ->
                 open.getUI().ifPresent(ui -> ui.navigate(route))
         );
