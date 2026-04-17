@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:16
+    container_name: scooter-db
+    environment:
+      POSTGRES_DB: scooterdb
+      POSTGRES_USER: scooteruser
+      POSTGRES_PASSWORD: scooterpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scooteruser -d scooterdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    container_name: scooter-app
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/scooterdb
+      SPRING_DATASOURCE_USERNAME: scooteruser
+      SPRING_DATASOURCE_PASSWORD: scooterpass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+volumes:
+  postgres_data:

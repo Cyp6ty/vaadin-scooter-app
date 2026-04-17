@@ -5,6 +5,7 @@ import com.vaadin.flow.spring.security.VaadinSecurityConfigurer;
 import org.springframework.boot.security.autoconfigure.web.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,6 +39,7 @@ public class SecurityConfig {
 
     // Sallii H2-consolin käytön ilman autentikointia
     @Bean
+    @Profile("!prod")
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain h2ConsoleSecurityFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher(PathRequest.toH2Console())
