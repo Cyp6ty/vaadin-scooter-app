@@ -1,14 +1,19 @@
 package fi.sauli.view.profile;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.lumo.LumoUtility;
 import fi.sauli.base.ui.MainLayout;
 import fi.sauli.service.UserService;
 import fi.sauli.user.AppUser;
@@ -34,6 +39,7 @@ public class ProfileView extends VerticalLayout {
     // Luo upload-komponentin ja käsittelee kuvan tallennuksen ja näyttämisen
     public ProfileView(UserService userService) {
         this.userService = userService;
+        addClassName("profile-view");
 
         setAlignItems(Alignment.CENTER);
         setSpacing(true);
@@ -84,7 +90,45 @@ public class ProfileView extends VerticalLayout {
 
         upload.addFileRejectedListener(event ->
                 Notification.show("Vain kuvatiedostot ovat sallittuja"));
-        add(title, profileImage, upload);
+
+        // Käyttäjänimen ja salasanan näyttäminen
+        AppUser user = userService.getCurrentUser();
+
+        Paragraph usernameText = new Paragraph("Käyttäjänimi: " + user.getUsername());
+        usernameText.addClassName("profile-info-row");
+
+        Span passwordText = new Span("********");
+        passwordText.addClassName("profile-password-value");
+        Button togglePassword = new Button("Näytä");
+        togglePassword.addClassName("profile-password-button");
+
+        togglePassword.addClickListener(e -> {
+            if (passwordText.getText().equals("********")) {
+                passwordText.setText(user.getPasswordHash());
+                togglePassword.setText("Piilota");
+            } else {
+                passwordText.setText("********");
+                togglePassword.setText("Näytä");
+            }
+        });
+
+        Span passwordLabelText = new Span("Salasana: ");
+        Paragraph passwordLabel = new Paragraph();
+        passwordLabel.add(passwordLabelText, passwordText);
+        passwordLabel.addClassName("profile-password-label");
+
+        HorizontalLayout passwordRow = new HorizontalLayout(passwordLabel, togglePassword);
+        passwordRow.addClassName("profile-password-row");
+
+        VerticalLayout profileInfoCard = new VerticalLayout(usernameText, passwordRow);
+        profileInfoCard.addClassName("profile-info-card");
+
+        add(
+                title,
+                profileImage,
+                upload,
+                profileInfoCard
+        );
     }
 
     // Lataa ja näyttää aijemmin tallennetun kuvan
