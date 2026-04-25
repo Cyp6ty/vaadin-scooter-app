@@ -12,6 +12,9 @@ import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import fi.sauli.base.ui.MainLayout;
+import fi.sauli.repository.RideRepository;
+import fi.sauli.repository.ScooterRepository;
+import fi.sauli.repository.StationRepository;
 
 import static org.springframework.context.i18n.LocaleContextHolder.setLocale;
 
@@ -19,9 +22,20 @@ import static org.springframework.context.i18n.LocaleContextHolder.setLocale;
 @Menu(title = "Etusivu", icon = "home")
 @AnonymousAllowed
 public class HomeView extends VerticalLayout {
+    private final ScooterRepository scooterRepository;
+    private final StationRepository stationRepository;
+    private final RideRepository rideRepository;
+
 
     // --- Konstruktor ---
-    public  HomeView() {
+    public  HomeView(
+            ScooterRepository scooterRepository,
+            StationRepository stationRepository,
+            RideRepository rideRepository
+    ) {
+        this.scooterRepository = scooterRepository;
+        this.stationRepository = stationRepository;
+        this.rideRepository = rideRepository;
 
         if (com.vaadin.flow.server.VaadinSession.getCurrent() != null
                 && com.vaadin.flow.server.VaadinSession.getCurrent().getLocale() != null) {
@@ -70,25 +84,29 @@ public class HomeView extends VerticalLayout {
         return layout;
     }
 
-    // TODO: arvot tulee olla oikeat luvut, ei kovakoodattuja
+
     // Stats
     private FlexLayout createStatsSection() {
+        long scooterCount = scooterRepository.count();
+        long stationCount = stationRepository.count();
+        long rideCount = rideRepository.count();
+
         FlexLayout stats = new FlexLayout(
                 createStatCard(
                         getTranslation("home.card.scooters.title"),
-                        "12",
+                        String.valueOf(scooterCount),
                         getTranslation("home.card.scooters.description"),
                         "scooters"
                 ),
                 createStatCard(
                         getTranslation("home.card.stations.title"),
-                        "6",
+                        String.valueOf(stationCount),
                         getTranslation("home.card.stations.description"),
                         "stations"
                 ),
                 createStatCard(
                         getTranslation("home.card.rides.title"),
-                        "28",
+                        String.valueOf(rideCount),
                         getTranslation("home.card.rides.description"),
                         "rides"
                 )
