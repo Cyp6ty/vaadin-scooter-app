@@ -3,8 +3,16 @@
 Course project for the Java Web Development course.
 
 The application is built using Vaadin and Spring Boot.
-
 The project includes Maven Wrapper, so Maven does not need to be installed separately on the machine.
+
+
+When the application is launched, the following default users are created automatically:
+
+| Username      | Password |
+|----------------|----------|
+| User           | user123 |
+| Super          | super123 |
+| Admin          | admin123 |
 
 ---
 
@@ -24,7 +32,7 @@ The script uses `MERGE INTO` statements so it can be executed multiple times wit
 
 ---
 
-## Technologies
+### Technologies
 - Java
 - Spring Boot
 - Vaadin
@@ -34,7 +42,7 @@ The script uses `MERGE INTO` statements so it can be executed multiple times wit
 
 ----
 
-## Cloning the Project Clone the repository:
+### Cloning the Project Clone the repository:
 
 ```bash
 git clone https://github.com/Cyp6ty/vaadin-scooter-app.git
