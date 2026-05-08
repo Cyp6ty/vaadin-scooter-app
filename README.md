@@ -1,5 +1,5 @@
-````md
 # Vaadin Scooter App
+````md
 
 Java Web-ohjelmointi -kurssin harjoitustyö.
 
@@ -63,8 +63,3 @@ Sovelluksen voi käynnistää myös Dockerilla:
 docker compose up --build
 ```
 
----
-
-
-```
-```
