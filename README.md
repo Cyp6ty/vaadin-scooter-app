@@ -14,6 +14,13 @@ When the application is launched, the following default users are created automa
 | Super          | super123 |
 | Admin          | admin123 |
 
+
+# Project Report
+
+The project report can be found here:
+
+[Open PDF report](docs/report.pdf)
+
 ---
 
 ## Sample Data
