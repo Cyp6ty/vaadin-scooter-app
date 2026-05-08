@@ -5,8 +5,6 @@ Java Web-ohjelmointi -kurssin harjoitustyö.
 
 Sovellus on toteutettu Vaadinilla ja Spring Bootilla. Projektissa on käytössä Maven Wrapper (Mavenia ei tarvitse asentaa erikseen koneelle).
 
----
-
 # Teknologiat
 
 - Java
@@ -15,8 +13,6 @@ Sovellus on toteutettu Vaadinilla ja Spring Bootilla. Projektissa on käytössä
 - Maven
 - PostgreSQL
 - Docker
-
----
 
 # Projektin lataaminen
 
