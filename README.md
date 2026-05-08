@@ -32,7 +32,7 @@ The script uses `MERGE INTO` statements so it can be executed multiple times wit
 
 ---
 
-## Technologies
+### Technologies
 - Java
 - Spring Boot
 - Vaadin
@@ -42,7 +42,7 @@ The script uses `MERGE INTO` statements so it can be executed multiple times wit
 
 ----
 
-## Cloning the Project Clone the repository:
+### Cloning the Project Clone the repository:
 
 ```bash
 git clone https://github.com/Cyp6ty/vaadin-scooter-app.git
