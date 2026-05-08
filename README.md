@@ -12,7 +12,7 @@ When the application is launched, the following default users are created automa
 |----------------|----------|
 | User           | user123 |
 | Super          | super123 |
-| Administrator  | admin123 |
+| Admin          | admin123 |
 
 ---
 
