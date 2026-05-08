@@ -1,12 +1,10 @@
 # Vaadin Scooter App
-````md
 
 Java Web-ohjelmointi -kurssin harjoitustyö.
 
 Sovellus on toteutettu Vaadinilla ja Spring Bootilla. Projektissa on käytössä Maven Wrapper (Mavenia ei tarvitse asentaa erikseen koneelle).
 
-# Teknologiat
-
+## Teknologiat
 - Java
 - Spring Boot
 - Vaadin
@@ -14,7 +12,7 @@ Sovellus on toteutettu Vaadinilla ja Spring Bootilla. Projektissa on käytössä
 - PostgreSQL
 - Docker
 
-# Projektin lataaminen
+## Projektin lataaminen
 
 Kloonaa repository:
 
@@ -30,7 +28,7 @@ cd vaadin-scooter-app
 
 ---
 
-# Vaatimukset
+### Vaatimukset
 
 Projektin suorittamiseen tarvitaan:
 
@@ -39,15 +37,15 @@ Projektin suorittamiseen tarvitaan:
 
 ---
 
-# Sovelluksen käynnistys
+## Sovelluksen käynnistys
 
-## Windows PowerShell
+### Windows PowerShell
 
 ```powershell
 .\mvnw.cmd spring-boot:run
 ```
 
-## Linux / macOS
+### Linux / macOS
 
 ```bash
 ./mvnw spring-boot:run
@@ -55,7 +53,7 @@ Projektin suorittamiseen tarvitaan:
 
 ---
 
-# Docker
+## Docker
 
 Sovelluksen voi käynnistää myös Dockerilla:
 
