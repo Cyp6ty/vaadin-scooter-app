@@ -3,8 +3,16 @@
 Course project for the Java Web Development course.
 
 The application is built using Vaadin and Spring Boot.
-
 The project includes Maven Wrapper, so Maven does not need to be installed separately on the machine.
+
+
+When the application is launched, the following default users are created automatically:
+
+| Username      | Password |
+|----------------|----------|
+| User           | user123 |
+| Super          | super123 |
+| Administrator  | admin123 |
 
 ---
 
