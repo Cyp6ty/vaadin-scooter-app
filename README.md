@@ -1,80 +1,87 @@
-# My Application README
+# Vaadin Scooter App
 
-- [ ] TODO Replace or update this README with instructions relevant to your application
+Course project for the Java Web Development course.
 
-## Project Structure
+The application is built using Vaadin and Spring Boot.
 
-This project has the following structure:
+The project includes Maven Wrapper, so Maven does not need to be installed separately on the machine.
 
-```
-src
-├── main/java
-│   └── [application package]
-│       ├── base
-│       │   └── ui
-│       │       ├── ViewToolbar.java
-│       │       └── MainLayout.java
-│       ├── examplefeature
-│       │   ├── ui
-│       │   │   └── TaskListView.java
-│       │   ├── Task.java
-│       │   ├── TaskRepository.java
-│       │   └── TaskService.java                
-│       └── Application.java     
-├── main/resources
-│   ├── META-INF
-│   │   └── resources
-│   │       └── styles.css
-│   └── application.properties 
-└── test/java
-    └── [application package]
-        └── examplefeature
-           └── TaskServiceTest.java                 
+---
+
+## Sample Data
+
+The project includes an optional SQL file for inserting example data into the H2 database:
+
+```text
+src/main/resources/sample-data.sql
 ```
 
-The main entry point into the application is `Application.java`. This class contains the `main()` method that starts up 
-the Spring Boot application.
+The data was originally created through the application's user interface and exported from the H2 console.
 
-The project follows a *feature-based package structure*, organizing code by *functional units* rather than traditional 
-architectural layers. It includes two feature packages: `base` and `examplefeature`.
+The SQL file can be executed manually in the H2 Console if example data is needed for testing the application.
 
-* The `base` package contains classes meant for reuse across different features, either through composition or 
-  inheritance. You can use them as-is, tweak them to your needs, or remove them.
-* The `examplefeature` package is an example feature package that demonstrates the structure. It represents a 
-  *self-contained unit of functionality*, including UI components, business logic, data access, and an integration test.
-  Once you create your own features, *you'll remove this package*.
+The script uses `MERGE INTO` statements so it can be executed multiple times without causing duplicate primary key errors.
 
+---
 
-## Starting in Development Mode
+## Technologies
+- Java
+- Spring Boot
+- Vaadin
+- Maven
+- PostgreSQL
+- Docker
 
-To start the application in development mode, import it into your IDE and run the `Application` class. 
-You can also start the application from the command line by running: 
+----
+
+## Cloning the Project Clone the repository:
 
 ```bash
-./mvnw
-```
+git clone https://github.com/Cyp6ty/vaadin-scooter-app.git
+````
 
-## Building for Production
-
-To build the application in production mode, run:
+Navigate to the project directory:
 
 ```bash
-./mvnw package
+cd vaadin-scooter-app
 ```
 
-To build a Docker image, run:
+---
+
+### Requirements
+
+To run the project, you need:
+
+* JDK 21 or newer
+* JAVA_HOME configured as an environment variable
+
+---
+
+### Running the Application
+
+### Windows PowerShell
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+### Linux / macOS
 
 ```bash
-docker build -t my-application:latest .
+./mvnw spring-boot:run
 ```
 
-If you use commercial components, pass the license key as a build secret:
+---
+
+### Docker
+
+The application can also be started using Docker:
 
 ```bash
-docker build --secret id=proKey,src=$HOME/.vaadin/proKey .
+docker compose up --build
 ```
 
-## Next Steps
+---
 
-The [Building Apps](https://vaadin.com/docs/v25/building-apps) guides contain hands-on advice for adding features to 
-your application.
+
+
