@@ -1,10 +1,30 @@
 # Vaadin Scooter App
 
-Java Web-ohjelmointi -kurssin harjoitustyö.
+Course project for the Java Web Development course.
 
-Sovellus on toteutettu Vaadinilla ja Spring Bootilla. Projektissa on käytössä Maven Wrapper (Mavenia ei tarvitse asentaa erikseen koneelle).
+The application is built using Vaadin and Spring Boot.
 
-## Teknologiat
+The project includes Maven Wrapper, so Maven does not need to be installed separately on the machine.
+
+---
+
+## Sample Data
+
+The project includes an optional SQL file for inserting example data into the H2 database:
+
+```text
+src/main/resources/sample-data.sql
+```
+
+The data was originally created through the application's user interface and exported from the H2 console.
+
+The SQL file can be executed manually in the H2 Console if example data is needed for testing the application.
+
+The script uses `MERGE INTO` statements so it can be executed multiple times without causing duplicate primary key errors.
+
+---
+
+## Technologies
 - Java
 - Spring Boot
 - Vaadin
@@ -12,15 +32,15 @@ Sovellus on toteutettu Vaadinilla ja Spring Bootilla. Projektissa on käytössä
 - PostgreSQL
 - Docker
 
-## Projektin lataaminen
+----
 
-Kloonaa repository:
+## Cloning the Project Clone the repository:
 
 ```bash
 git clone https://github.com/Cyp6ty/vaadin-scooter-app.git
 ````
 
-Siirry projektikansioon:
+Navigate to the project directory:
 
 ```bash
 cd vaadin-scooter-app
@@ -28,16 +48,16 @@ cd vaadin-scooter-app
 
 ---
 
-### Vaatimukset
+### Requirements
 
-Projektin suorittamiseen tarvitaan:
+To run the project, you need:
 
-* JDK 21 tai uudempi
-* JAVA_HOME asetettuna ympäristömuuttujaksi
+* JDK 21 or newer
+* JAVA_HOME configured as an environment variable
 
 ---
 
-## Sovelluksen käynnistys
+### Running the Application
 
 ### Windows PowerShell
 
@@ -53,11 +73,15 @@ Projektin suorittamiseen tarvitaan:
 
 ---
 
-## Docker
+### Docker
 
-Sovelluksen voi käynnistää myös Dockerilla:
+The application can also be started using Docker:
 
 ```bash
 docker compose up --build
 ```
+
+---
+
+
 
